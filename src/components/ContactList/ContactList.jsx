@@ -1,19 +1,28 @@
 import { List } from './ContactList.styled';
 import { ContactItem } from './ContactItem';
-import { useSelector } from 'react-redux';
-import { selectContacts, selectFilter } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectError,
+  selectIsLoading,
+  selectVisibleContacts,
+} from 'redux/selectors';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/contactsSlice';
+import { Loader } from 'components/Loader';
 
 export const ContactList = () => {
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  const filteredContacts = useSelector(selectVisibleContacts);
 
-  const normalizedFilter = filter.toLowerCase();
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter)
-  );
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <>
+      {isLoading && <Loader />}
       {filteredContacts.length > 0 && (
         <List>
           {filteredContacts.map(({ id, name, number }) => (
@@ -21,6 +30,7 @@ export const ContactList = () => {
           ))}
         </List>
       )}
+      {error && alert('Sorry, something is wrong!')}
     </>
   );
 };

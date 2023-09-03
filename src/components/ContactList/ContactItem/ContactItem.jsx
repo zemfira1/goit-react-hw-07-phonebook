@@ -1,3 +1,4 @@
+//import { useEffect } from 'react';
 import { Contact, ButtonDelete } from './ContactItem.styled';
 import PropTypes from 'prop-types';
 import { FiPhone } from 'react-icons/fi';
