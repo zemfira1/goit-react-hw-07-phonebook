@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { initialState } from './constants';
+import { initialContactsState} from './constants';
 import axios from 'axios';
 
 const BASE_URL = 'https://64f134190e1e60602d23a37d.mockapi.io/contacts';
@@ -45,7 +45,7 @@ export const deleteContact = createAsyncThunk(
 
 const contactsListSlice = createSlice({
   name: 'contactsList',
-  initialState: initialState,
+  initialState: initialContactsState,
   extraReducers: builder =>
     builder
       .addCase(fetchContacts.pending, state => {

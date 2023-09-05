@@ -38,7 +38,11 @@ export const ContactForm = () => {
       number: number,
     };
 
-    if (contacts.find(contact => contact.name === newContact.name)) {
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
       alert(`${newContact.name} is already in contacts`);
       return;
     }
